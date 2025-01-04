@@ -1,0 +1,102 @@
+
+Memoria: Predicción de Ventas con Machine Learning
+1. Objetivo del Análisis
+El objetivo principal de este análisis era desarrollar un modelo de Machine Learning que permitiera predecir las ventas futuras de la empresa. Basándonos en variables como el año, el mes, la región y el producto, buscábamos anticipar las tendencias de ventas para optimizar inventarios, reducir costos operativos y mejorar la precisión en las decisiones estratégicas.
+
+Suposición Inicial
+Asumimos que un único modelo global podría capturar las tendencias generales de ventas de la empresa, considerando todas las regiones y productos combinados. Sin embargo, esta suposición inicial se cuestionó a medida que se identificaron varias limitaciones en los datos y patrones.
+
+2. Dificultades Encontradas
+Desequilibrio en los Datos
+Dominancia del Producto 1:
+El Producto 1 representaba más del 70% de las ventas totales en algunas regiones, lo que generó un sesgo significativo en el modelo.
+Los productos menos representados eran ignorados, dificultando la captura de patrones relevantes.
+Prueba: En el gráfico de ventas por producto, se observa que el Producto 1 alcanzó 5,159,243 unidades vendidas, mientras que el Producto 6 apenas llegó a 357,157 unidades.
+Patrones Regionales Diferentes
+Las tendencias de ventas y los productos más vendidos variaban significativamente entre regiones:
+En España, el Producto 1 dominaba las ventas.
+En América y Europa, las ventas estaban más distribuidas entre varios productos.
+Prueba: En el análisis de distribución por región y producto, se observan estas diferencias, justificando la necesidad de segmentar por regiones.
+Relaciones Débiles entre Variables y el Objetivo
+Las correlaciones entre las variables independientes (mes, región, producto) y las ventas eran bajas, dificultando la captura de patrones claros.
+Ejemplo: La mayoría de los valores de correlación estaban cercanos a cero, con la excepción de la región "España", que mostró una correlación de 0.27.
+3. Enfoque Propuesto
+Segmentación del Análisis por Región
+Dado que cada región mostró patrones de ventas únicos, entrenar un único modelo resultaba ineficiente. Por ello, se decidió segmentar los datos y entrenar modelos específicos para cada región.
+
+Beneficio: Captura de patrones locales, reducción de ruido y mejora del ajuste del modelo.
+Prueba: Las métricas 𝑅2 y RMSE mejoraron significativamente al dividir por regiones:
+América: 𝑅2=0.65, RMSE=6,219.33.
+España: 0.40,RMSE=25,941.27.
+Europa: 0.63,RMSE=15,070.50.
+
+
+Equilibrar la Representación de Productos
+Para evitar que el Producto 1 dominara el modelo, se ajustaron los datos:
+
+Se redujo el peso del Producto 1 o se aumentaron las observaciones de productos menos representados.
+Se crearon nuevas categorías basadas en rangos de precios para agrupar productos similares.
+
+4. Resultados Obtenidos
+Desempeño del Modelo Global
+El modelo único para todas las regiones tuvo un desempeño limitado:
+𝑅2 =−0.20 (promedio).
+RMSE = 26,516.28.
+Conclusión: Un modelo único no era capaz de capturar la variabilidad de las ventas.
+Desempeño del Modelo Segmentado
+Los modelos específicos por región mostraron mejoras significativas:
+América: 
+𝑅2=0.65,RMSE=6,219.33.
+España: 
+R2=0.40,RMSE=25,941.27.
+Europa: 
+R2=0.63,RMSE=15,070.50.
+Resto del Mundo: Excluido debido a la falta de datos (11 observaciones en total).
+
+
+Importancia de las Variables
+Variables más relevantes:
+Mes (54.65%).
+Año (25.47%).
+Producto 10 (32.2%) en algunas regiones.
+Conclusión: Las categorías de productos menos importantes (3, 4, 5 y 6) contribuyeron muy poco al modelo, indicando que estas variables podrían redefinirse o eliminarse.
+
+
+5. Conclusiones
+Segmentación por Región
+
+Razones para Segmentar:
+Las regiones tienen patrones de ventas muy diferentes:
+En España, el Producto 1 domina.
+En América, las ventas son más equitativas entre productos.
+En Europa, existe una distribución balanceada.
+Prueba: La correlación regional y los gráficos muestran que un modelo único introduce ruido debido a patrones contradictorios.
+
+Impacto de la Segmentación:
+Mejor ajuste a patrones locales.
+Eliminación del sesgo causado por el dominio del Producto 1 en ciertas regiones.
+
+Limitaciones
+Las regiones con pocos datos, como "Resto del Mundo", no pueden modelarse de manera efectiva.
+Los patrones de ventas dependen de factores externos no incluidos, como estacionalidad o tendencias del mercado.
+
+
+6. Decisiones y Acciones Derivadas del Modelo
+Gestión de Inventarios
+Acción: Ajustar los inventarios por región:
+En América, donde las predicciones indican un aumento en ventas, incrementar el stock para evitar roturas.
+En España, redistribuir inventarios sobrantes hacia regiones con mayor demanda.
+Marketing Dirigido
+Acción: Diseñar campañas promocionales específicas:
+En Resto del Mundo, donde las ventas predichas son bajas, lanzar promociones para estimular la demanda.
+En España, focalizar las campañas en productos secundarios para diversificar las ventas.
+Producción
+Acción: Priorizar la producción de productos con mayor demanda predicha:
+En América y Europa, enfocar la producción en Producto 10, que tiene mayor relevancia según el modelo.
+
+
+7. Futuro del Modelo
+Incorporar Nuevos Datos
+Añadir variables externas, como:
+Promociones, tendencias económicas y estacionales.
+Datos de la competencia y comportamiento del consumidor.
